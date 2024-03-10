@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class TicketManager {
@@ -5,6 +6,8 @@ public class TicketManager {
     Scanner insert = new Scanner(System.in);
 
     List<Ticket> ticketList = new ArrayList<>();
+
+    int elements = 0;
 
 
     public void add(){
@@ -15,6 +18,19 @@ public class TicketManager {
         ticket.setType();
         ticket.setPerson();
         ticketList.add(ticket);
+        elements = ticket.getCounter();
+    }
+    public void PersonSorter(){
+        Collections.sort(ticketList, new personComparator());
+        for(Ticket ticket : ticketList)
+        {
+            System.out.println(ticket.showPerson());
+        }
+
+    }
+    public void showInfo(){
+        System.out.println("Тип - ArrayList" );
+        System.out.println("Количество элементов " + elements);
     }
 
     public void showList(){
@@ -28,12 +44,14 @@ public class TicketManager {
     public void removeFirst(){
         System.out.print(ticketList.get(0));
         ticketList.remove(0);
+        elements--;
     }
     public void removeAtIndex(){
         System.out.print("Введите индекс для удаления (начиная с 0 ) : ");
         int index = insert.nextInt();
         System.out.print(ticketList.get(index));
         ticketList.remove(index);
+        elements--;
 
     }
     public Ticket removeById(){
@@ -46,6 +64,7 @@ public class TicketManager {
             ticketList.remove(ticket);
             return ticket;
         }
+        elements--;
         return null;
     }
     public Ticket updateById(){
@@ -65,13 +84,6 @@ public class TicketManager {
         return null;
     }
 
-    public static class TicketPersonComparator implements Comparator<Ticket>
-    {
-        @Override
-        public int compare(Ticket o1, Ticket o2) {
-            return o1.getPerson().compareTo(o2.getPerson());
-        }
-    }
     public Ticket listSortType() {
         System.out.print("Введите минимальное значение качества : ");
         TicketType current;
@@ -127,9 +139,11 @@ public class TicketManager {
             }
             return null;
     }
-    public void PersonSorter(){
-        Collections.sort(ticketList, new TicketPersonComparator());
-        System.out.print(ticketList);
-
+    public static class personComparator implements Comparator<Ticket>{
+        @Override
+        public int compare(Ticket o1, Ticket o2) {
+            return o1.getPerson().compareTo(o2.getPerson());
+        }
     }
+
 }

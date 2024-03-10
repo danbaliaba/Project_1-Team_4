@@ -2,23 +2,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-     /*   TicketManager ticketManager = new TicketManager();
-        ticketManager.add();
-        ticketManager.add();
-       // ticketManager.add();
-       // ticketManager.add();
-       // ticketManager.clearList();
-       // ticketManager.removeFirst();
-       //  ticketManager.showList();
-      //  ticketManager.removeAtIndex();
-      //  ticketManager.removeById();
-       // ticketManager.updateById();
-        //ticketManager.listSortType();
-        ticketManager.PersonSorter();
-
-      //  ticketManager.showList();*/
         Scanner insert = new Scanner(System.in);
         TicketManager ticketManager = new TicketManager();
+        System.out.println("Команда help выведит доступный список команд!");
         while(true)
         {
             String vvod = insert.nextLine();
@@ -41,53 +27,43 @@ public class Main {
             else if (vvod.contains("show"))
             {
                 ticketManager.showList();
-
             }
             else if (vvod.contains("add"))
             {
                 ticketManager.add();
-
+            }
+            else if(vvod.contains("info"))
+            {
+                ticketManager.showInfo();
             }
             else if (vvod.contains("update"))
             {
                 ticketManager.updateById();
-
             }
             else if (vvod.contains("remove_by_id"))
             {
                 ticketManager.removeById();
-
             }
             else if (vvod.contains("clear"))
             {
                 ticketManager.clearList();
-
             }
             else if (vvod.contains("remove_at"))
             {
                 ticketManager.removeAtIndex();
-
             }
             else if (vvod.contains("remove_first"))
             {
                 ticketManager.removeFirst();
-
             }
             else if (vvod.contains("filter_greater_than_type"))
             {
                 ticketManager.listSortType();
-
             }
             else if (vvod.contains("print_field_descending_person"))
             {
                 ticketManager.PersonSorter();
-
             }
-
         }
-
-
-
-
     }
 }

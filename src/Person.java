@@ -1,18 +1,20 @@
 import java.util.Scanner;
-public class Person{
+public class Person {
     private String passportID;
-    public void setPassportID(){
+
+    public void setPassportID() {
         Scanner scans = new Scanner(System.in);
         do {
             System.out.print("Введите ваш идентификационный номер : ");
             this.passportID = scans.nextLine();
             if (this.passportID.length() < 4) {
                 System.out.println("Длина строки должна содержать не меньше 4 символов!");
-                continue;
             }
-        }while(this.passportID.length()<4);
+        } while (this.passportID.length() < 4);
     }
-    public String getPassportID(){
+
+
+    public String getPassportID() {
         return this.passportID;
     }
 }

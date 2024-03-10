@@ -1,6 +1,6 @@
 import java.util.Objects;
 import java.util.Scanner;
-public class Ticket implements Comparable<Ticket> {
+public class Ticket implements Comparable<Ticket>{
     private static int counter = 0;
     private long id ; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -88,12 +88,6 @@ public class Ticket implements Comparable<Ticket> {
     public String getPerson(){
         return this.person;
     }
-
-    @Override
-    public int compareTo(Ticket obj) {
-        return this.price - obj.getPrice();
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -109,6 +103,16 @@ public class Ticket implements Comparable<Ticket> {
 
     public String toString(){
         return "Название : " + this.name + "\nЦена : " + this.price +"\nСтатус : " + this.type +"\nPerson : "+ this.person + "\nID : " + this.id +"\n";
+    }
+    @Override
+    public int compareTo(Ticket o) {
+        return Math.max(o.getPrice(), this.getPrice());
+    }
+    public String showPerson(){
+        return "Идентификационный номер персоны " + person;
+    }
+    public int getCounter(){
+        return counter;
     }
 }
 
