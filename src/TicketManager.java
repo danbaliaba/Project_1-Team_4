@@ -18,7 +18,7 @@ public class TicketManager {
         ticket.setType();
         ticket.setPerson();
         ticketList.add(ticket);
-        elements = ticket.getCounter();
+        elements++;
     }
     public void PersonSorter(){
         Collections.sort(ticketList, new personComparator());

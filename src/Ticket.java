@@ -111,8 +111,5 @@ public class Ticket implements Comparable<Ticket>{
     public String showPerson(){
         return "Идентификационный номер персоны " + person;
     }
-    public int getCounter(){
-        return counter;
-    }
 }
 
