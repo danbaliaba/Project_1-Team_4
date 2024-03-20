@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
+        // реализовать все взаимодействие с пользователем в классе CLIView
         Scanner insert = new Scanner(System.in);
         TicketManager ticketManager = new TicketManager();
         System.out.println("Команда help выведет доступный список команд!");
