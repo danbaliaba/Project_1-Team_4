@@ -12,8 +12,8 @@ public class TicketManager {
 
     public void add(){
         Ticket ticket = new Ticket();
-        ticket.setId();
         ticket.setName();
+        ticket.setId();
         ticket.setPrice();
         ticket.setType();
         ticket.setPerson();

@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.io.IOException;
 public class Ticket implements Comparable<Ticket>{
     private static int counter = 0;
-    private long id ; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    private static long id ; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private int price; //Значение поля должно быть больше 0
     private TicketType type; //Поле может быть null
@@ -14,11 +14,11 @@ public class Ticket implements Comparable<Ticket>{
         this.id = 2348972 + Ticket.counter;
         Ticket.counter++;
     }
-    public long getId(){
+    public static long getId(){
         return  id;
     }
 
-    public void setName(){
+    void setName(){
         Scanner scan = new Scanner (System.in);
         System.out.print("Введите имя : ");
         this.name = scan.nextLine();
@@ -27,6 +27,9 @@ public class Ticket implements Comparable<Ticket>{
             System.out.print("Это поле не может быть пустым, введите имя : ");
             this.name = scan.nextLine();
         }
+    }
+    public String getName(){
+        return this.name;
     }
     public void setPrice(){
         Scanner scan = new Scanner (System.in);
