@@ -26,7 +26,6 @@ public class TicketManager {
         {
             System.out.println(ticket.showPerson());
         }
-
     }
     public void showInfo(){
         System.out.println("Тип - ArrayList" );

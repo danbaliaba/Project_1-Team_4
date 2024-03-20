@@ -1,5 +1,6 @@
 import java.util.Objects;
 import java.util.Scanner;
+import java.io.IOException;
 public class Ticket implements Comparable<Ticket>{
     private static int counter = 0;
     private long id ; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
@@ -7,8 +8,6 @@ public class Ticket implements Comparable<Ticket>{
     private int price; //Значение поля должно быть больше 0
     private TicketType type; //Поле может быть null
     private String person;//Поле не может быть null
-
-    Scanner scan = new Scanner (System.in);
 
     public void setId()
     {
@@ -20,9 +19,8 @@ public class Ticket implements Comparable<Ticket>{
     }
 
     public void setName(){
+        Scanner scan = new Scanner (System.in);
         System.out.print("Введите имя : ");
-   //     String nameScan = scan.nextLine();
-        //    this.name = nameScan;
         this.name = scan.nextLine();
         if(this.name == null )
         {
@@ -31,6 +29,7 @@ public class Ticket implements Comparable<Ticket>{
         }
     }
     public void setPrice(){
+        Scanner scan = new Scanner (System.in);
         do {
             System.out.print("Введите цену : ");
             this.price = scan.nextInt();
@@ -41,6 +40,7 @@ public class Ticket implements Comparable<Ticket>{
         return this.price;
     }
     public void setType(){
+        Scanner scan = new Scanner (System.in);
         System.out.println("Выберите один из статусов : " +
                            "\n1." + TicketType.VIP +
                            "\n2." + TicketType.BUDGETARY +
