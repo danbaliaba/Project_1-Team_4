@@ -53,7 +53,7 @@ public class Main {
                     ticketManager.listSortType();
                     break;
                 case "print_field_descending_person":
-                    ticketManager.PersonSorter();
+                    ticketManager.personSorter();
                     break;
                 case "exit":
                     System.out.println("Завершение программы.");

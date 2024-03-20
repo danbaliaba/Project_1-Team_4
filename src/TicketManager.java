@@ -20,8 +20,8 @@ public class TicketManager {
         ticketList.add(ticket);
         elements++;
     }
-    public void PersonSorter(){
-        Collections.sort(ticketList, new personComparator());
+    public void personSorter(){
+        Collections.sort(ticketList, new Person.personComparator());
         for(Ticket ticket : ticketList)
         {
             System.out.println(ticket.showPerson());
@@ -187,11 +187,6 @@ public class TicketManager {
             }
             return null;
     }
-    public static class personComparator implements Comparator<Ticket>{
-        @Override
-        public int compare(Ticket o1, Ticket o2) {
-            return o1.getPerson().compareTo(o2.getPerson());
-        }
-    }
+
 
 }
