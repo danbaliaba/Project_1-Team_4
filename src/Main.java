@@ -5,7 +5,19 @@ public class Main {
     public static void main(String[] args) {
         // реализовать все взаимодействие с пользователем в классе CLIView
         Scanner insert = new Scanner(System.in);
-        TicketManager ticketManager = new TicketManager();
+
+        /* VAL: я не знаю, почему, но это работает только так. Я не могу вписать название и
+        оно работает только с записью CLIView CLIView = New CLIView, я пока не нашла других решений.
+        Иначе оно требует все методы, вызываемые из класса CLIView сделать статическими.
+        Так что пока это костыль
+         */
+        CLIView CLIView = new CLIView();
+
+        // VAL: Этот код ещё дописывается
+//        String ticketCSVList = String.valueOf(args[0]); // VAL: преобразую аргументу в строку и использую это в кач-ве аргументов метода
+//        CLIView.addTicketFromCVS(ticketCSVList); // VAL: вызываю метод, который берёт аргументы при запуске в кач-ве указания адреса CSV файла
+
+
         System.out.println("Команда help выведет доступный список команд!");
 
         String vvod;
@@ -26,35 +38,37 @@ public class Main {
                             "filter_greater_than_type {type} : вывести элементы, значение поля type которых больше заданного\n" +
                             "print_field_descending_person : вывести значения поля person всех элементов в порядке убывания");
                     break;
+                    /* VAL: я починила вызов методов, раньше использовалось ticketManager.имя_метода,
+                    что устарело, т.к. теперь команды хранятся в CLIView */
                 case "info":
-                    ticketManager.showInfo();
+                    CLIView.showInfo();
                     break;
                 case "show":
-                    ticketManager.showList();
+                    CLIView.showList();
                     break;
                 case "add":
-                    ticketManager.add();
+                    CLIView.add();
                     break;
                 case "update":
-                    ticketManager.updateById();
+                    CLIView.updateById();
                     break;
                 case "remove_by_id":
-                    ticketManager.removeById();
+                    CLIView.removeById();
                     break;
                 case "clear":
-                    ticketManager.clearList();
+                    CLIView.clearList();
                     break;
                 case "remove_at":
-                    ticketManager.removeAtIndex();
+                    CLIView.removeAtIndex();
                     break;
                 case "remove_first":
-                    ticketManager.removeFirst();
+                    CLIView.removeFirst();
                     break;
                 case "filter_greater_than_type":
-                    ticketManager.listSortType();
+                    CLIView.listSortType();
                     break;
                 case "print_field_descending_person":
-                    ticketManager.personSorter();
+//                    CLIView.personSorter(); VAL: пока что так, потому что метод не прописан, потом можно его "открыть"
                     break;
                 case "exit":
                     System.out.println("Завершение программы.");
