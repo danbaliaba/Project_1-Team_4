@@ -9,6 +9,14 @@ public class Ticket implements Comparable<Ticket>{
     private TicketType type; //Поле может быть null
     private String person;//Поле не может быть null
 
+    Ticket(String name, long id, int price, TicketType type, String person){
+        this.name = name;
+        this.id = id;
+        this.price = price;
+        this.type = type;
+        this.person = person;
+    };
+
     public void setId() // надо еще прописать приём id в CLIView
     {
         this.id = 2348972 + Ticket.counter;
