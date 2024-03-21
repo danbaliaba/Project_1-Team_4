@@ -1,10 +1,14 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 
 public class CLIView {
+    String parseDateTime;
     int elements = 0;
     List<Ticket> tickets = new ArrayList<>();
 
@@ -103,6 +107,8 @@ public class CLIView {
     public void add() {
         tickets.add(new Ticket(askName(), askId(), askPrice(), askTicketType(), askPerson()));
         elements++;
+        LocalDateTime date = LocalDateTime.now();
+        parseDateTime = date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
     }
 
     public void showList() {
@@ -143,7 +149,7 @@ public class CLIView {
         }
         boolean removed = false;
         for (Ticket ticket : tickets) {
-            if (ticket.getId() == id) {
+            if (askId() == id) {
                 tickets.remove(ticket);
                 System.out.println("Билет с id " + id + " удален.");
                 removed = true;
@@ -164,7 +170,7 @@ public class CLIView {
         System.out.print("Введите id элемента, чтобы обновить его : ");
         long id = ins.nextInt();
         for (Ticket ticket : tickets) {
-            if (ticket.getId() == id) {
+            if (askId() == id) {
                 Scanner insertName = new Scanner(System.in);
                 System.out.print("Введите новое имя билета: ");
                 name = insertName.nextLine();
@@ -235,6 +241,69 @@ public class CLIView {
 
         return null;
     }
+
+    public Ticket listSortType() { // перенести в класс CLIView
+        System.out.print("Введите минимальное значение качества : ");
+        TicketType current;
+        Scanner insert = new Scanner(System.in);
+        do {
+            String ins = insert.nextLine();
+            switch (ins) {
+                case "VIP":
+                    current = TicketType.VIP;
+                    break;
+                case "BUDGETARY":
+                    current = TicketType.BUDGETARY;
+                    break;
+                case "CHEAP":
+                    current = TicketType.CHEAP;
+                    break;
+                case "USUAL":
+                    current = TicketType.USUAL;
+                    break;
+                default:
+                    System.out.print("Выбериет тип из списка : ");
+                    continue;
+            }
+            break;
+        } while (true);
+        if(current == TicketType.VIP)
+        {
+            for(Ticket ticket : tickets)
+            {
+                if (askTicketType() == TicketType.VIP)
+                    System.out.print(ticket);
+            }
+        }
+        else if(current == TicketType.BUDGETARY)
+        {
+            for(Ticket ticket : tickets)
+            {
+                if (askTicketType() == TicketType.BUDGETARY || askTicketType() == TicketType.VIP)
+                    System.out.print(ticket);
+            }
+        }
+        else if(current == TicketType.CHEAP)
+        {
+            for(Ticket ticket : tickets)
+            {
+                if (askTicketType() == TicketType.CHEAP || askTicketType() == TicketType.BUDGETARY || askTicketType() == TicketType.VIP)
+                    System.out.print(ticket);
+            }
+        }
+        else
+        {
+            System.out.print(tickets);
+        }
+        return null;
+    }
+
+    public void showInfo(){ // перенести в класс CLIView
+        System.out.println("Тип - ArrayList" );
+        System.out.println("Количество элементов " + elements);
+        System.out.println("Дата создания : " + parseDateTime);
+    }
+
 }
 // Главный switch для выбора команд ( из мейн )
 // Ввод / вывод происходит здесь

@@ -10,8 +10,7 @@ public class TicketManager {
     int elements = 0;
 
 
-    public void add(){
-        Ticket ticket = new Ticket();
+ /*   public void add(){
         ticket.setName();
         ticket.setId();
         ticket.setPrice();
@@ -19,7 +18,7 @@ public class TicketManager {
         ticket.setPerson();
         ticketList.add(ticket);
         elements++;
-    }
+    }*/
     public void personSorter(){ // перенести в класс CLIView
         Collections.sort(ticketList, new Person.personComparator());
         for(Ticket ticket : ticketList)
@@ -27,25 +26,25 @@ public class TicketManager {
             System.out.println(ticket.showPerson());
         }
     }
-    public void showInfo(){ // перенести в класс CLIView
+   /* public void showInfo(){ // перенести в класс CLIView
         System.out.println("Тип - ArrayList" );
         System.out.println("Количество элементов " + elements);
     }
 
-    public void showList(){ // перенести в класс CLIView
+    public void showList(){
         System.out.print(ticketList);
 
     }
     public void clearList()
     {
         ticketList.clear();
-    } // перенести в класс CLIView
-    public void removeFirst(){ // перенести в класс CLIView
+    }
+    public void removeFirst(){
         System.out.print(ticketList.get(0));
         ticketList.remove(0);
         elements--;
     }
-    public void removeAtIndex(){ // перенести в класс CLIView
+    public void removeAtIndex(){
         System.out.print("Введите индекс для удаления (начиная с 0 ) : ");
         int index = insert.nextInt();
         System.out.print(ticketList.get(index));
@@ -53,7 +52,7 @@ public class TicketManager {
         elements--;
 
     }
-    public void removeById() { // перенести в класс CLIView
+    public void removeById() {
         System.out.print("Введите id билета для удаления: ");
         long id;
         try {
@@ -79,7 +78,7 @@ public class TicketManager {
         }
         
     }
-    public Ticket updateById(){ // перенести в класс CLIView
+    public Ticket updateById(){
         System.out.print("Введите id элемента, чтобы обновить его : ");
         long id = insert.nextInt();
         for(Ticket ticket : ticketList)        {
@@ -186,7 +185,7 @@ public class TicketManager {
                 System.out.print(ticketList);
             }
             return null;
-    }
+    }*/
 
 
 }

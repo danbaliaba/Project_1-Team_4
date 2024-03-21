@@ -1,7 +1,7 @@
 import java.util.Objects;
 import java.util.Scanner;
 import java.io.IOException;
-public class Ticket implements Comparable<Ticket>{
+public class Ticket /*implements Comparable<Ticket>*/{
     private static int counter = 0;
     private static long id ; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -17,7 +17,7 @@ public class Ticket implements Comparable<Ticket>{
         this.person = person;
     };
 
-    public void setId() // надо еще прописать приём id в CLIView
+    /*  public void setId() // надо еще прописать приём id в CLIView
     {
         this.id = 2348972 + Ticket.counter;
         Ticket.counter++;
@@ -98,7 +98,7 @@ public class Ticket implements Comparable<Ticket>{
     }
     public String getPerson(){
         return this.person;
-    }
+    }*/
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -115,10 +115,10 @@ public class Ticket implements Comparable<Ticket>{
     public String toString(){
         return "Название : " + this.name + "\nЦена : " + this.price +"\nСтатус : " + this.type +"\nPerson : "+ this.person + "\nID : " + this.id +"\n";
     }
-    @Override
+ /*   @Override
     public int compareTo(Ticket o) {
         return Math.max(o.getPrice(), this.getPrice());
-    }
+    }*/
     public String showPerson(){
         return "Идентификационный номер персоны " + person;
     }

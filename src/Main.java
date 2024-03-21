@@ -9,7 +9,7 @@ public class Main {
         System.out.println("Команда help выведет доступный список команд!");
 
         String vvod;
-        do {
+    /*    do {
             System.out.print("Введите команду: ");
             vvod = insert.nextLine();
 
@@ -63,7 +63,7 @@ public class Main {
                     System.out.println("Некорректная команда. Введите 'help' для списка команд.");
                     break;
             }
-        } while (!vvod.equals("exit"));
+        } while (!vvod.equals("exit"));*/
 
         insert.close();
     }
