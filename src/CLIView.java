@@ -1,13 +1,11 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.time.LocalDate;
 
 public class CLIView {
+    Scanner insert = new Scanner(System.in);
     String parseDateTime;
     int elements = 0;
     List<Ticket> tickets = new ArrayList<>();
@@ -112,7 +110,9 @@ public class CLIView {
     }
 
     public void showList() {
-        System.out.print(tickets);
+        for (Ticket showTicket : tickets){
+            System.out.println(showTicket);
+        }
     }
 
     public void clearList() {
@@ -303,6 +303,16 @@ public class CLIView {
         System.out.println("Количество элементов " + elements);
         System.out.println("Дата создания : " + parseDateTime);
     }
+
+    public void personSorter(){ // перенести в класс CLIView
+        Collections.sort(tickets, new Person.personComparator());
+        for(Ticket ticket : tickets)
+        {
+            System.out.println(ticket.showPerson());
+        }
+    }
+
+
 
 }
 // Главный switch для выбора команд ( из мейн )

@@ -1,13 +1,13 @@
 import java.util.*;
 import java.util.Scanner;
 
-public class TicketManager {
-
-    Scanner insert = new Scanner(System.in);
-
-    List<Ticket> ticketList = new ArrayList<>();
-
-    int elements = 0;
+//public class TicketManager {
+//
+//    Scanner insert = new Scanner(System.in);
+//
+//    List<Ticket> tickets = new ArrayList<>();
+//
+//    int elements = 0;
 
 
  /*   public void add(){
@@ -19,13 +19,19 @@ public class TicketManager {
         ticketList.add(ticket);
         elements++;
     }*/
-    public void personSorter(){ // перенести в класс CLIView
+
+    /*
+    -------------------------------------------------------------------------------------------------------------------
+    public void personSorter(){ // перенести в класс CLIView ||| UPD от VAL: перенесла этот метод в CLIView и починила
         Collections.sort(ticketList, new Person.personComparator());
         for(Ticket ticket : ticketList)
         {
             System.out.println(ticket.showPerson());
         }
     }
+    -------------------------------------------------------------------------------------------------------------------
+    */
+
    /* public void showInfo(){ // перенести в класс CLIView
         System.out.println("Тип - ArrayList" );
         System.out.println("Количество элементов " + elements);
@@ -188,4 +194,4 @@ public class TicketManager {
     }*/
 
 
-}
+//}

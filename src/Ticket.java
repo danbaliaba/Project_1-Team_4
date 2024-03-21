@@ -95,10 +95,10 @@ public class Ticket /*implements Comparable<Ticket>*/{
             pers.setPassportID();
             this.person = pers.getPassportID();
         }
-    }
-    public String getPerson(){
+    } */
+    public String getPerson(){  // VAL: Эта часть была срыта, что ломало код в классе Person и Comparator'е, починила
         return this.person;
-    }*/
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
