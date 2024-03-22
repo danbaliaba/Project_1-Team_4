@@ -1,13 +1,8 @@
+import Models.Person;
 import java.util.*;
 import java.util.Scanner;
 
 public class TicketManager {
-
-    Scanner insert = new Scanner(System.in);
-
-    List<Ticket> ticketList = new ArrayList<>();
-
-    int elements = 0;
 
 
  /*   public void add(){
@@ -19,14 +14,14 @@ public class TicketManager {
         ticketList.add(ticket);
         elements++;
     }*/
-    public void personSorter(){ // перенести в класс CLIView
+ /*   public void personSorter(){ // перенести в класс Views.CLIView // Надо дописать метод print_field_descending_person
         Collections.sort(ticketList, new Person.personComparator());
         for(Ticket ticket : ticketList)
         {
             System.out.println(ticket.showPerson());
         }
-    }
-   /* public void showInfo(){ // перенести в класс CLIView
+    }*/
+   /* public void showInfo(){ // перенести в класс Views.CLIView
         System.out.println("Тип - ArrayList" );
         System.out.println("Количество элементов " + elements);
     }
@@ -64,7 +59,7 @@ public class TicketManager {
         }
 
         boolean removed = false;
-        for (Ticket ticket : ticketList) {
+        for (Models.Ticket ticket : ticketList) {
             if (ticket.getId() == id) {
                 ticketList.remove(ticket);
                 System.out.println("Билет с id " + id + " удален.");
@@ -78,10 +73,10 @@ public class TicketManager {
         }
         
     }
-    public Ticket updateById(){
+    public Models.Ticket updateById(){
         System.out.print("Введите id элемента, чтобы обновить его : ");
         long id = insert.nextInt();
-        for(Ticket ticket : ticketList)        {
+        for(Models.Ticket ticket : ticketList)        {
             if (ticket.getId() == id) {
                 System.out.print("Введите новое имя билета: ");
                 String name = insert.nextLine().trim();
@@ -131,7 +126,7 @@ public class TicketManager {
         return null;
     }
 
-    public Ticket listSortType() { // перенести в класс CLIView
+    public Models.Ticket listSortType() { // перенести в класс Views.CLIView
         System.out.print("Введите минимальное значение качества : ");
         TicketType current;
 
@@ -158,7 +153,7 @@ public class TicketManager {
         } while (true);
             if(current == TicketType.VIP)
             {
-                for(Ticket ticket : ticketList)
+                for(Models.Ticket ticket : ticketList)
                 {
                     if (ticket.getType() == TicketType.VIP)
                         System.out.print(ticket);
@@ -166,7 +161,7 @@ public class TicketManager {
             }
             else if(current == TicketType.BUDGETARY)
             {
-                for(Ticket ticket : ticketList)
+                for(Models.Ticket ticket : ticketList)
                 {
                     if (ticket.getType() == TicketType.BUDGETARY || ticket.getType() == TicketType.VIP)
                         System.out.print(ticket);
@@ -174,7 +169,7 @@ public class TicketManager {
             }
             else if(current == TicketType.CHEAP)
             {
-                for(Ticket ticket : ticketList)
+                for(Models.Ticket ticket : ticketList)
                 {
                     if (ticket.getType() == TicketType.CHEAP || ticket.getType() == TicketType.BUDGETARY || ticket.getType() == TicketType.VIP)
                         System.out.print(ticket);
