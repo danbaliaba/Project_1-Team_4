@@ -1,4 +1,4 @@
-package Controllers;
+package Controller;
 import Models.TicketRepository;
 public class TicketController {
     TicketRepository ticketRepo = new TicketRepository();
