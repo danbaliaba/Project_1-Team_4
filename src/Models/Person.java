@@ -3,6 +3,7 @@ package Models;
 
 import java.util.Comparator;
 import java.util.Scanner;
+
 public class Person {
     private String passportID;
 
@@ -16,13 +17,13 @@ public class Person {
             }
         } while (this.passportID.length() < 4);
     }
-   public static class personComparator implements Comparator<Ticket> {
+
+    public static class personComparator implements Comparator<Ticket> {
         @Override
         public int compare(Ticket o1, Ticket o2) {
             return o1.getPerson().compareTo(o2.getPerson());
         }
     }*/
-
 
     public String getPassportID() {
         return this.passportID;
