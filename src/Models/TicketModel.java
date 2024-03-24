@@ -1,5 +1,7 @@
 package Models;
 
+import Controller.TicketController;
+
 import java.util.Objects;
 
 public class TicketModel {
@@ -7,12 +9,17 @@ public class TicketModel {
     private String name; //Поле не может быть null, Строка не может быть пустой
     private int price; //Значение поля должно быть больше 0
     private TicketType type; //Поле может быть null
-    private String person;//Поле не может быть null
+    private Person person;//Поле не может быть null
+    long counter;
+
+    TicketController TicketController = new TicketController();
+    TicketRepository TicketRepository = new TicketRepository();
 
 
-    public TicketModel(String name, long id, int price, TicketType type, String person){
+    public TicketModel(String name, int price, TicketType type, Person person){
+        counter++;
+        this.id = counter;
         this.name = name;
-        this.id = id;
         this.price = price;
         this.type = type;
         this.person = person;
@@ -23,6 +30,19 @@ public class TicketModel {
     public TicketType getType(){
         return this.type;
     }
+
+    public long getCounter() {
+        return counter;
+    }
+
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
+
+    public void setId(long newId) {
+        this.id = newId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

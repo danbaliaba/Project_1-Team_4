@@ -1,22 +1,22 @@
 package Views;
 
-import Models.Person;
+import Controller.TicketController;
 import Models.TicketModel;
 import Models.TicketType;
+import Models.Utils;
+import jdk.jshell.execution.Util;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CLIView {
-//    String parseDateTime;
-//    int elements = 0;
-//    List<TicketModel> tickets = new ArrayList<>();
 
+
+    TicketController TicketController = new TicketController();
     List<TicketModel> tickets = new ArrayList<>();
+
     public String askName() {
         String name = null;
         Scanner scan = new Scanner(System.in);
@@ -29,6 +29,20 @@ public class CLIView {
         } while (name == null || name.isEmpty());
 
         return name;
+    }
+
+    public long askID() {
+        String string;
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Введите желаемое ID...\n");
+        string = scan.nextLine();
+        if (!Utils.isLong(string)){
+            System.out.println("Указано неверное значение.\n");
+        }
+        if (Long.parseLong(string) < 0) {
+            System.out.println("Значение должно быть больше нуля.\n");
+        }
+        return Long.parseLong(string);
     }
 
     public int askPrice() {
@@ -100,375 +114,159 @@ public class CLIView {
         return passportID;
     }
 
-    public long askId() {
-        return 23482394;
+    public void clearCommand (){
+        TicketController.clearForView();
+        System.out.println("Лист успешно очищен!");
     }
-//    public void removeById() { // перенести в класс Views.CLIView
-//        long id;
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.print("Введите id билета для удаления: ");
-//
-//        try {
-//            id = scanner.nextLong();
-//        } catch (InputMismatchException | NumberFormatException e) {
-//            System.out.println("Некорректный формат id.");
-//            scanner.next();
-//            return;
-//        }
-//        boolean removed = false;
-//        for (TicketModel ticket : tickets) {
-//            if (getId() == id) {
-//                tickets.remove(ticket);
-//                System.out.println("Билет с id " + id + " удален.");
-//                removed = true;
-//                break;
-//            }
-//        }
-//        if (!removed) {
-//            System.out.println("Билет с id " + id + " не найден.");
-//        }
-//    }
-//    public TicketModel updateById() {
-//        String name = null;
-//        int price = 0;
-//        TicketType type = null;
-//        String passportID = null;
-//        Scanner ins = new Scanner(System.in);
-//        System.out.print("Введите id элемента, чтобы обновить его : ");
-//        long id = ins.nextInt();
-//        for (TicketModel ticket : tickets) {
-//            if (id == TicketModel.getId) {
-//                Scanner insertName = new Scanner(System.in);
-//                System.out.print("Введите новое имя билета: ");
-//                name = insertName.nextLine();
-//                if (!name.isEmpty()) {
-//                    Scanner scan = new Scanner(System.in);
-//                    do {
-//                        System.out.print("Введите имя : ");
-//                        name = scan.nextLine();
-//                        if (name == null) {
-//                            System.out.print("Это поле не может быть пустым, введите имя : ");
-//                        }
-//                    } while (name.isEmpty());
-//                }
-//                System.out.print("Введите новую цену билета: ");
-//                Scanner insertPrice = new Scanner(System.in);
-//                price = insertPrice.nextInt();
-//                do {
-//                    try {
-//                        System.out.print("Введите цену : ");
-//                        price = insertPrice.nextInt();
-//                        if (price <= 0) {
-//                            System.out.println("Цена должна быть больше чем 0!");
-//                        }
-//                    } catch (InputMismatchException e) {
-//                        System.out.println("Неправильный формат ввода!");
-//                        insertPrice.next();
-//                    }
-//                } while (price <= 0);
-//                System.out.print("Введите новый тип билета (VIP, USUAL, BUDGETARY, CHEAP): ");
-//                String typeStr = ins.nextLine();
-//                if (!typeStr.isEmpty()) {
-//                    do {
-//                        switch (typeStr) {
-//                            case "VIP":
-//                                type = TicketType.VIP;
-//                                break;
-//                            case "BUDGETARY":
-//                                type = TicketType.BUDGETARY;
-//                                break;
-//                            case "CHEAP":
-//                                type = TicketType.CHEAP;
-//                                break;
-//                            case "USUAL":
-//                                type = TicketType.USUAL;
-//                                break;
-//                            case " ":
-//                                type = null;
-//                                break;
-//                            default:
-//                                System.out.print("Выберите тип из списка : ");
-//                                continue;
-//                        }
-//                        break;
-//                    } while (true);
-//                }
-//                Scanner insertPassport = new Scanner(System.in);
-//                do {
-//                    System.out.print("Введите новый номер паспорта: ");
-//                    passportID = insertPassport.nextLine();
-//                    if (passportID.length() >= 4) {
-//                        System.out.println("Номер паспорта должен содержать не менее 4 символов.");
-//                    }
-//                } while (passportID.isEmpty());
-//                System.out.println("Билет с id " + id + " обновлен.");
-//            }
-//        }
-//        tickets.add(new TicketModel(name, id, price, type, passportID ));
-//
-//        return null;
-//    }
-//    public TicketModel listSortType() {
-//        System.out.print("Введите минимальное значение качества : ");
-//        TicketType current;
-//        Scanner insert = new Scanner(System.in);
-//        do {
-//            String ins = insert.nextLine();
-//            switch (ins) {
-//                case "VIP":
-//                    current = TicketType.VIP;
-//                    break;
-//                case "BUDGETARY":
-//                    current = TicketType.BUDGETARY;
-//                    break;
-//                case "CHEAP":
-//                    current = TicketType.CHEAP;
-//                    break;
-//                case "USUAL":
-//                    current = TicketType.USUAL;
-//                    break;
-//                default:
-//                    System.out.print("Выбериет тип из списка : ");
-//                    continue;
-//            }
-//            break;
-//        } while (true);
-//        if(current == TicketType.VIP)
-//        {
-//            for(TicketModel ticket : tickets)
-//            {
-//                if (getTicketType() == TicketType.VIP)
-//                    System.out.print(ticket);
-//            }
-//        }
-//        else if(current == TicketType.BUDGETARY)
-//        {
-//            for(TicketModel ticket : tickets)
-//            {
-//                if (getTicketType() == TicketType.BUDGETARY || getTicketType() == TicketType.VIP)
-//                    System.out.print(ticket);
-//            }
-//        }
-//        else if(current == TicketType.CHEAP)
-//        {
-//            for(TicketModel ticket : tickets)
-//            {
-//                if (getTicketType() == TicketType.CHEAP || getTicketType() == TicketType.BUDGETARY || getTicketType() == TicketType.VIP)
-//                    System.out.print(ticket);
-//            }
-//        }
-//        else
-//        {
-//            System.out.print(tickets);
-//        }
-//        return null;
-//    }
 
-//    public void add() {
-//        tickets.add(new TicketModel(askName(), askId(), askPrice(), askTicketType(), askPerson()));
-//        elements++;
-//        LocalDateTime date = LocalDateTime.now();
-//        parseDateTime = date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
-//    }
+    public void removeFirstCommand (){
+        TicketController.removeFirstForView();
+    }
 
-//    public void showList() {
-//        System.out.print(tickets);
-//    }
-//
-//    public void clearList() {
-//        tickets.clear();
-//        elements = 0;
-//    }
-//
-//    public void removeFirst() { // перенести в класс Views.CLIView
-//        System.out.print(tickets.get(0));
-//        tickets.remove(0);
-//        elements--;
-//    }
-//
-//    public void removeAtIndex() { // перенести в класс Views.CLIView
-//        Scanner insert = new Scanner(System.in);
-//        System.out.print("Введите индекс для удаления (начиная с 0 ) : ");
-//        int index = insert.nextInt();
-//        System.out.print(tickets.get(index));
-//        tickets.remove(index);
-//        elements--;
-//    }
-//
-//    public void removeById() { // перенести в класс Views.CLIView
-//        long id;
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.print("Введите id билета для удаления: ");
-//
-//        try {
-//            id = scanner.nextLong();
-//        } catch (InputMismatchException | NumberFormatException e) {
-//            System.out.println("Некорректный формат id.");
-//            scanner.next();
-//            return;
-//        }
-//        boolean removed = false;
-//        for (TicketModel ticket : tickets) {
-//            if (askId() == id) {
-//                tickets.remove(ticket);
-//                System.out.println("Билет с id " + id + " удален.");
-//                removed = true;
-//                break;
-//            }
-//        }
-//        if (!removed) {
-//            System.out.println("Билет с id " + id + " не найден.");
-//        }
-//    }
-//
-//    public TicketModel updateById() {
-//        String name = null;
-//        int price = 0;
-//        TicketType type = null;
-//        String passportID = null;
-//        Scanner ins = new Scanner(System.in);
-//        System.out.print("Введите id элемента, чтобы обновить его : ");
-//        long id = ins.nextInt();
-//        for (TicketModel ticket : tickets) {
-//            if (askId() == id) {
-//                Scanner insertName = new Scanner(System.in);
-//                System.out.print("Введите новое имя билета: ");
-//                name = insertName.nextLine();
-//                if (!name.isEmpty()) {
-//                    Scanner scan = new Scanner(System.in);
-//                    do {
-//                        System.out.print("Введите имя : ");
-//                        name = scan.nextLine();
-//                        if (name == null) {
-//                            System.out.print("Это поле не может быть пустым, введите имя : ");
-//                        }
-//                    } while (name.isEmpty());
-//                }
-//                System.out.print("Введите новую цену билета: ");
-//                Scanner insertPrice = new Scanner(System.in);
-//                price = insertPrice.nextInt();
-//                do {
-//                    try {
-//                        System.out.print("Введите цену : ");
-//                        price = insertPrice.nextInt();
-//                        if (price <= 0) {
-//                            System.out.println("Цена должна быть больше чем 0!");
-//                        }
-//                    } catch (InputMismatchException e) {
-//                        System.out.println("Неправильный формат ввода!");
-//                        insertPrice.next();
-//                    }
-//                } while (price <= 0);
-//                System.out.print("Введите новый тип билета (VIP, USUAL, BUDGETARY, CHEAP): ");
-//                String typeStr = ins.nextLine();
-//                if (!typeStr.isEmpty()) {
-//                    do {
-//                        switch (typeStr) {
-//                            case "VIP":
-//                                type = TicketType.VIP;
-//                                break;
-//                            case "BUDGETARY":
-//                                type = TicketType.BUDGETARY;
-//                                break;
-//                            case "CHEAP":
-//                                type = TicketType.CHEAP;
-//                                break;
-//                            case "USUAL":
-//                                type = TicketType.USUAL;
-//                                break;
-//                            case " ":
-//                                type = null;
-//                                break;
-//                            default:
-//                                System.out.print("Выберите тип из списка : ");
-//                                continue;
-//                        }
-//                        break;
-//                    } while (true);
-//                }
-//                Scanner insertPassport = new Scanner(System.in);
-//                do {
-//                    System.out.print("Введите новый номер паспорта: ");
-//                    passportID = insertPassport.nextLine();
-//                    if (passportID.length() >= 4) {
-//                        System.out.println("Номер паспорта должен содержать не менее 4 символов.");
-//                    }
-//                } while (passportID.isEmpty());
-//                System.out.println("Билет с id " + id + " обновлен.");
-//            }
-//        }
-//        tickets.add(new TicketModel(name, id, price, type, passportID ));
-//
-//        return null;
-//    }
-//
-//    public TicketModel listSortType() { // перенести в класс Views.CLIView
-//        System.out.print("Введите минимальное значение качества : ");
-//        TicketType current;
-//        Scanner insert = new Scanner(System.in);
-//        do {
-//            String ins = insert.nextLine();
-//            switch (ins) {
-//                case "VIP":
-//                    current = TicketType.VIP;
-//                    break;
-//                case "BUDGETARY":
-//                    current = TicketType.BUDGETARY;
-//                    break;
-//                case "CHEAP":
-//                    current = TicketType.CHEAP;
-//                    break;
-//                case "USUAL":
-//                    current = TicketType.USUAL;
-//                    break;
-//                default:
-//                    System.out.print("Выбериет тип из списка : ");
-//                    continue;
-//            }
-//            break;
-//        } while (true);
-//        if(current == TicketType.VIP)
-//        {
-//            for(TicketModel ticket : tickets)
-//            {
-//                if (askTicketType() == TicketType.VIP)
-//                    System.out.print(ticket);
-//            }
-//        }
-//        else if(current == TicketType.BUDGETARY)
-//        {
-//            for(TicketModel ticket : tickets)
-//            {
-//                if (askTicketType() == TicketType.BUDGETARY || askTicketType() == TicketType.VIP)
-//                    System.out.print(ticket);
-//            }
-//        }
-//        else if(current == TicketType.CHEAP)
-//        {
-//            for(TicketModel ticket : tickets)
-//            {
-//                if (askTicketType() == TicketType.CHEAP || askTicketType() == TicketType.BUDGETARY || askTicketType() == TicketType.VIP)
-//                    System.out.print(ticket);
-//            }
-//        }
-//        else
-//        {
-//            System.out.print(tickets);
-//        }
-//        return null;
-//    }
-//
-//    public void showInfo(){ // перенести в класс Views.CLIView
-//        System.out.println("Тип - ArrayList" );
-//        System.out.println("Количество элементов " + elements);
-//        System.out.println("Дата создания : " + parseDateTime);
-//    }
+    public void showInfoCommand() {
+        System.out.println("Тип - ArrayList");
+        System.out.println("Количество элементов " + TicketController.getElementsForView());
+        System.out.println("Дата создания : " + TicketController.getParseDateTimeForView());
+    }
 
+    public void removeByIdCommand() {
+        long id;
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введите id билета для удаления: ");
+        try {
+            id = scanner.nextLong();
+        } catch (InputMismatchException | NumberFormatException e) {
+            System.out.println("Некорректный формат id.");
+            scanner.next();
+            return;
+        }
+        TicketController.removeByIdForView(id);
+        if (id > 0) {
+            System.out.println("Успешно удалён билет с ID " + id);
+        } else System.out.println("Не найдено билета с ID " + id);
+    }
+
+    public void addCommand() {
+        System.out.println("Начало работы добавления билета\n");
+        TicketController.addForView(askName(), askPrice(), askTicketType(), askPerson());
+        System.out.println("Билет успешно добавлен в список!\n");
+    }
+
+    public void addByIdCommand() {
+        System.out.println("Начало работы добавления билета по ID\n");
+        long newId = askID();
+        TicketController.addByIdForView(askName(), askPrice(), askTicketType(), askPerson(), newId);
+        System.out.println("Билет успешно добавлен в список!\n");
+    }
+
+    public void removeAtIndexCommand() {
+        int index;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите желаемый индекс для удаления (начиная с 0): ");
+        try {
+            index = scanner.nextInt();
+        } catch (InputMismatchException | NumberFormatException e) {
+            System.out.println("Некорректный формат индекса.");
+            scanner.next();
+            return;
+        }
+        TicketController.removeAtIndexForView(index);
+    }
+
+    public void listSortTypeCommand(){
+        System.out.print("Введите минимальное значение качества:\n");
+        TicketType current;
+        Scanner insert = new Scanner(System.in);
+        do {
+            String ins = insert.nextLine();
+            switch (ins) {
+                case "VIP":
+                    current = TicketType.VIP;
+                    break;
+                case "BUDGETARY":
+                    current = TicketType.BUDGETARY;
+                    break;
+                case "CHEAP":
+                    current = TicketType.CHEAP;
+                    break;
+                case "USUAL":
+                    current = TicketType.USUAL;
+                    break;
+                default:
+                    System.out.print("Выберите тип из списка:\n");
+                    continue;
+            }
+            break;
+        } while (true);
+        System.out.println(TicketController.listSortForView(current));
+    }
+
+    public void showCommand(){
+        System.out.println(TicketController.showListForView());
+    }
+
+    public void startProgram() {
+        Scanner insert = new Scanner(System.in);
+        System.out.println("Команда help выведет доступный список команд!");
+
+        String vvod;
+        do {
+            System.out.print("Введите команду: ");
+            vvod = insert.nextLine();
+
+            switch (vvod) {
+                case "help":
+                    System.out.println("info : вывести информацию о коллекции\n" +
+                            "show : вывести все элементы коллекции\n" +
+                            "add : добавить новый элемент в коллекцию\n" +
+                            "update {id} : обновить значение элемента коллекции\n" +
+                            "remove_by_id {id} : удалить элемент из коллекции по id\n" +
+                            "clear : очистить коллекцию\n" +
+                            "remove_at {index} : удалить элемент по индексу\n" +
+                            "remove_first : удалить первый элемент\n" +
+                            "filter_greater_than_type {type} : вывести элементы, значение поля type которых больше заданного\n" +
+                            "print_field_descending_person : вывести значения поля person всех элементов в порядке убывания");
+                    break;
+                case "info":
+                    showInfoCommand();
+                    break;
+                case "show":
+                    showCommand();
+                    break;
+                case "add":
+                    addCommand();
+                    break;
+                case "update":
+                    addByIdCommand();
+                    break;
+                case "remove_by_id":
+                    removeByIdCommand();
+                    break;
+                case "clear":
+                    clearCommand();
+                    break;
+                case "remove_at":
+                    removeAtIndexCommand();
+                    break;
+                case "remove_first":
+                    removeFirstCommand();
+                    break;
+                case "filter_greater_than_type":
+                    listSortTypeCommand();
+                    break;
+             /*   case "print_field_descending_person": // надо доделать
+                    personSorter();
+                    break;*/
+                case "exit":
+                    System.out.println("Завершение программы.");
+                    break;
+                default:
+                    System.out.println("Некорректная команда. Введите 'help' для списка команд.");
+                    break;
+            }
+        } while (!vvod.equals("exit"));
+
+        insert.close();
+    }
 }
-// Главный switch для выбора команд ( из мейн )
-// Ввод / вывод происходит здесь
-// Получение данных в Views.CLIView
-// 1. switch ( представлен в Main )
-// 2. отдельные команды ( удаления, добавление, ... )
-// 3. методы для получения полей ( пример : askName )
 

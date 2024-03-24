@@ -7,6 +7,10 @@ import java.util.Scanner;
 public class Person {
     private String passportID;
 
+    public Person(String passportID) {
+        this.passportID = passportID;
+    }
+
  /*   public void setPassportID() {
         Scanner scans = new Scanner(System.in);
         do {
@@ -27,5 +31,10 @@ public class Person {
 
     public String getPassportID() {
         return this.passportID;
+    }
+
+    @Override
+    public String toString() {
+        return passportID;
     }
 }

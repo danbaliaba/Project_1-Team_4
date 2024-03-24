@@ -1,36 +1,61 @@
 package Controller;
+import Models.Person;
+import Models.TicketModel;
 import Models.TicketRepository;
-public class TicketController {
-    TicketRepository ticketRepo = new TicketRepository();
+import Models.TicketType;
 
-    public void start(){
-        ticketRepo.startProgramm();
+import java.util.List;
+
+public class TicketController {
+    TicketRepository TicketRepository = new TicketRepository();
+
+    public void addForView(
+            String name, int price, TicketType type, String passportID) {
+        Person person = new Person(passportID);
+        TicketModel newTicket = new TicketModel(name, price, type, person);
+        this.TicketRepository.add(newTicket);
     }
-    public void add(){
-        ticketRepo.add();
+
+    public void addByIdForView(
+            String name, int price, TicketType type, String passportID, long id) {
+        Person person = new Person(passportID);
+        TicketModel newTicket = new TicketModel(name, price, type, person);
+        newTicket.setId(id);
+        this.TicketRepository.add(newTicket);
     }
-    public void showList(){
-        ticketRepo.showList();
+
+    public List<TicketModel> showListForView() {
+        return TicketRepository.showList();
     }
-    public void clear(){
-        ticketRepo.clearList();
+    public void clearForView(){
+        TicketRepository.clearListForController();
     }
-    public void removeFirst(){
-        ticketRepo.removeFirst();
+    public void removeFirstForView(){
+        TicketRepository.removeFirstForController();
     }
-    public void removeAtIndex(){
-        ticketRepo.removeAtIndex();
+    public void removeAtIndexForView(int index){
+        TicketRepository.removeAtIndexForController(index);
     }
-    public void removeById(){
-        ticketRepo.removeById();
+    public void removeByIdForView(long id){
+        TicketRepository.removeById(id);
     }
-    public void updateById(){
-        ticketRepo.updateById();
+    public boolean updateByIdForView(long id){
+        return TicketRepository.checkIdForUpdByID(id);
     }
-    public void listSortGreaterType(){
-        ticketRepo.listSortType();
+
+    public TicketModel listSortForView(TicketType current){
+        TicketModel ticket = TicketRepository.listSortTypeForController(current);
+        return ticket;
     }
-    public void info(){
-        ticketRepo.showInfo();
+    public String getParseDateTimeForView() {
+        return TicketRepository.getParseDateTime();
     }
+    public String setParseDateTimeForView() {
+        return TicketRepository.getParseDateTime();
+    }
+
+    public int getElementsForView() {
+        return TicketRepository.getElements();
+    }
+
 }
