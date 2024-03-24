@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import Controller.TicketController;
+import Models.TicketRepository;
+import Views.CLIView;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,7 +20,11 @@ public class Main {
 //        String ticketCSVList = String.valueOf(args[0]); // VAL: преобразую аргументу в строку и использую это в кач-ве аргументов метода
 //        CLIView.addTicketFromCVS(ticketCSVList); // VAL: вызываю метод, который берёт аргументы при запуске в кач-ве указания адреса CSV файла
 
-        TicketController ticketController = new TicketController();
-        ticketController.start();
+        CLIView CLIView = new CLIView();
+        TicketController TicketController = new TicketController();
+        TicketRepository TicketRepository = new TicketRepository();
+
+
+        CLIView.startProgram();
     }
 }
