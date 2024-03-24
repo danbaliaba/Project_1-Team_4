@@ -1,23 +1,23 @@
 package Models;
-
-import Controller.TicketController;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class TicketRepository {
     String parseDateTime;
 
     int elements = 0;
-    List<TicketModel> tickets = new ArrayList<>();
+    public List<TicketModel> tickets = new ArrayList<>();
+
+    public List<TicketModel> getTickets() {
+        return tickets;
+    }
+
+    public List<TicketModel> setTickets(List<TicketModel> ticketsFromFile) {
+        this.tickets = ticketsFromFile;
+        return ticketsFromFile;
+    }
 
     public void add(TicketModel ticketModel) {
         this.tickets.add(ticketModel);
-    }
-
-    public List<TicketModel> showList() {
-     return tickets;
     }
 
     public void clearListForController() {
@@ -32,7 +32,7 @@ public class TicketRepository {
         tickets.remove(index);
     }
 
-    public long removeById(long id) { // перенести в класс Views.CLIView
+    public long removeById(long id) {
 
         for (TicketModel ticket : tickets) {
             if (ticket.getId() == id) {
@@ -44,19 +44,6 @@ public class TicketRepository {
             }
         }
         return id;
-    }
-
-    public boolean checkIdForUpdByID(long id) {
-
-        for (TicketModel ticket : tickets) {
-            if (ticket.getId() == id) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-        return false;
     }
 
     public TicketModel listSortTypeForController(TicketType current) {
@@ -103,10 +90,6 @@ public class TicketRepository {
 
     public int getElements() {
         return elements;
-    }
-
-    public void setElements(int elements) {
-        this.elements = elements;
     }
 
 }

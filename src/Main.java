@@ -9,6 +9,12 @@ public class Main {
 
         CLIView CLIView = new CLIView();
 
-        CLIView.startProgram();
+        // VAL: базовый путь к файлу "resources/TicketDataBase.csv"
+        if (args.length == 0){
+            System.out.println("Не удалось найти путь к файлу.\n" +
+                    "Загрузка билетов из файла не удалась");
+        }
+
+        CLIView.startProgram(args[0]);
     }
 }
