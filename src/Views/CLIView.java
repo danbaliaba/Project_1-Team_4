@@ -31,18 +31,14 @@ public class CLIView {
         return name;
     }
 
-    public long askID() {
-        String string;
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Введите желаемое ID...\n");
-        string = scan.nextLine();
-        if (!Utils.isLong(string)){
+    public long checkID(String argsIn) {
+        if (!Utils.isLong(argsIn)) {
             System.out.println("Указано неверное значение.\n");
         }
-        if (Long.parseLong(string) < 0) {
+        if (Long.parseLong(argsIn) < 0) {
             System.out.println("Значение должно быть больше нуля.\n");
         }
-        return Long.parseLong(string);
+        return Long.parseLong(argsIn);
     }
 
     public int askPrice() {
@@ -51,10 +47,12 @@ public class CLIView {
         do {
             try {
 
-                System.out.print("Введите цену : ");
+                System.out.print("Введите цену: ");
                 price = scan.nextInt();
                 if (price <= 0) {
                     System.out.println("Цена должна быть больше чем 0!");
+                } else {
+                    return price;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Неправильный формат ввода!");
@@ -114,12 +112,12 @@ public class CLIView {
         return passportID;
     }
 
-    public void clearCommand (){
+    public void clearCommand() {
         TicketController.clearForView();
         System.out.println("Лист успешно очищен!");
     }
 
-    public void removeFirstCommand (){
+    public void removeFirstCommand() {
         TicketController.removeFirstForView();
     }
 
@@ -129,17 +127,14 @@ public class CLIView {
         System.out.println("Дата создания : " + TicketController.getParseDateTimeForView());
     }
 
-    public void removeByIdCommand() {
-        long id;
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Введите id билета для удаления: ");
+    public void removeByIdCommand(String argsIn) {
         try {
-            id = scanner.nextLong();
+            Utils.isLong(argsIn);
         } catch (InputMismatchException | NumberFormatException e) {
             System.out.println("Некорректный формат id.");
-            scanner.next();
             return;
         }
+        long id = Long.parseLong(argsIn);
         TicketController.removeByIdForView(id);
         if (id > 0) {
             System.out.println("Успешно удалён билет с ID " + id);
@@ -152,56 +147,48 @@ public class CLIView {
         System.out.println("Билет успешно добавлен в список!\n");
     }
 
-    public void addByIdCommand() {
+    public void addByIdCommand(String argsIn) {
         System.out.println("Начало работы добавления билета по ID\n");
-        long newId = askID();
+        long newId = checkID(argsIn);
         TicketController.addByIdForView(askName(), askPrice(), askTicketType(), askPerson(), newId);
         System.out.println("Билет успешно добавлен в список!\n");
     }
 
-    public void removeAtIndexCommand() {
-        int index;
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите желаемый индекс для удаления (начиная с 0): ");
-        try {
-            index = scanner.nextInt();
-        } catch (InputMismatchException | NumberFormatException e) {
-            System.out.println("Некорректный формат индекса.");
-            scanner.next();
+    public void removeAtIndexCommand(String argsIn) {
+        if (argsIn.isEmpty() || argsIn == null) {
+            System.out.println("Отсутствует аргумент. Введите его после команды.");
             return;
         }
+        try {
+            Utils.isInt(argsIn);
+        } catch (InputMismatchException | NumberFormatException e) {
+            System.out.println("Некорректный формат индекса.");
+            return;
+        }
+        int index = Integer.parseInt(argsIn);
         TicketController.removeAtIndexForView(index);
     }
 
-    public void listSortTypeCommand(){
-        System.out.print("Введите минимальное значение качества:\n");
-        TicketType current;
-        Scanner insert = new Scanner(System.in);
-        do {
-            String ins = insert.nextLine();
-            switch (ins) {
-                case "VIP":
-                    current = TicketType.VIP;
-                    break;
-                case "BUDGETARY":
-                    current = TicketType.BUDGETARY;
-                    break;
-                case "CHEAP":
-                    current = TicketType.CHEAP;
-                    break;
-                case "USUAL":
-                    current = TicketType.USUAL;
-                    break;
-                default:
-                    System.out.print("Выберите тип из списка:\n");
-                    continue;
-            }
-            break;
-        } while (true);
-        System.out.println(TicketController.listSortForView(current));
+    public void listSortTypeCommand(String argsIn) {
+        if (argsIn.isEmpty() || argsIn == null) {
+            System.out.println("Отсутствует аргумент. Введите его после команды.");
+            return;
+        }
+        String upperCaseArgsIn = argsIn.toUpperCase();
+        if (!Utils.isEnum(upperCaseArgsIn, TicketType.class)) {
+            System.out.println("Некорректный формат или запись.");
+            return;
+        }
+
+        if ((TicketController.ticketTypeArgsInResultForView(upperCaseArgsIn)) == null) {
+            System.out.println("Выбранный тип не найден, попробуйте снова!");
+        } else {
+            System.out.println(TicketController.listSortForView(TicketController.ticketTypeArgsInResultForView(upperCaseArgsIn)));
+        }
     }
 
-    public void showCommand(){
+
+    public void showCommand() {
         System.out.println(TicketController.showListForView());
     }
 
@@ -210,9 +197,21 @@ public class CLIView {
         System.out.println("Команда help выведет доступный список команд!");
 
         String vvod;
+        String[] vVodInParts = null; // VAL: объявление строки для работы далее, она будет отвечать за разделение строк при работе с некоторыми методами
+        String argsIn = null; // VAL: объявление аргументов, которые будут появляться при пользовательском вводе
         do {
             System.out.print("Введите команду: ");
             vvod = insert.nextLine();
+
+
+            if (vvod.contains(" ")) {
+                vVodInParts = vvod.split(" ");
+            }
+
+            if (vVodInParts != null && vVodInParts.length == 2) {
+                vvod = vVodInParts[0];
+                argsIn = vVodInParts[1];
+            }
 
             switch (vvod) {
                 case "help":
@@ -237,22 +236,22 @@ public class CLIView {
                     addCommand();
                     break;
                 case "update":
-                    addByIdCommand();
+                    addByIdCommand(argsIn);
                     break;
                 case "remove_by_id":
-                    removeByIdCommand();
+                    removeByIdCommand(argsIn);
                     break;
                 case "clear":
                     clearCommand();
                     break;
                 case "remove_at":
-                    removeAtIndexCommand();
+                    removeAtIndexCommand(argsIn);
                     break;
                 case "remove_first":
                     removeFirstCommand();
                     break;
                 case "filter_greater_than_type":
-                    listSortTypeCommand();
+                    listSortTypeCommand(argsIn);
                     break;
              /*   case "print_field_descending_person": // надо доделать
                     personSorter();

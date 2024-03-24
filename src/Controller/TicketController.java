@@ -1,4 +1,5 @@
 package Controller;
+
 import Models.Person;
 import Models.TicketModel;
 import Models.TicketRepository;
@@ -24,38 +25,68 @@ public class TicketController {
         this.TicketRepository.add(newTicket);
     }
 
-    public List<TicketModel> showListForView() {
-        return TicketRepository.showList();
-    }
-    public void clearForView(){
-        TicketRepository.clearListForController();
-    }
-    public void removeFirstForView(){
-        TicketRepository.removeFirstForController();
-    }
-    public void removeAtIndexForView(int index){
-        TicketRepository.removeAtIndexForController(index);
-    }
-    public void removeByIdForView(long id){
-        TicketRepository.removeById(id);
-    }
-    public boolean updateByIdForView(long id){
-        return TicketRepository.checkIdForUpdByID(id);
-    }
-
-    public TicketModel listSortForView(TicketType current){
-        TicketModel ticket = TicketRepository.listSortTypeForController(current);
-        return ticket;
-    }
-    public String getParseDateTimeForView() {
-        return TicketRepository.getParseDateTime();
-    }
-    public String setParseDateTimeForView() {
-        return TicketRepository.getParseDateTime();
+    public TicketType ticketTypeArgsInResultForView(String upperCaseArgsIn) {
+        TicketType result = null;
+        switch (upperCaseArgsIn) {
+            case "VIP":
+                result = TicketType.VIP;
+                break;
+            case "BUDGETARY":
+                result = TicketType.BUDGETARY;
+                break;
+            case "CHEAP":
+                result = TicketType.CHEAP;
+                break;
+            case "USUAL":
+                result = TicketType.USUAL;
+                break;
+            default:
+                result = null;
+                break;
+        }
+        return result;
     }
 
-    public int getElementsForView() {
-        return TicketRepository.getElements();
-    }
+
+public List<TicketModel> showListForView() {
+    return TicketRepository.showList();
+}
+
+public void clearForView() {
+    TicketRepository.clearListForController();
+}
+
+public void removeFirstForView() {
+    TicketRepository.removeFirstForController();
+}
+
+public void removeAtIndexForView(int index) {
+    TicketRepository.removeAtIndexForController(index);
+}
+
+public void removeByIdForView(long id) {
+    TicketRepository.removeById(id);
+}
+
+public boolean updateByIdForView(long id) {
+    return TicketRepository.checkIdForUpdByID(id);
+}
+
+public TicketModel listSortForView(TicketType current) {
+    TicketModel ticket = TicketRepository.listSortTypeForController(current);
+    return ticket;
+}
+
+public String getParseDateTimeForView() {
+    return TicketRepository.getParseDateTime();
+}
+
+public String setParseDateTimeForView() {
+    return TicketRepository.getParseDateTime();
+}
+
+public int getElementsForView() {
+    return TicketRepository.getElements();
+}
 
 }
