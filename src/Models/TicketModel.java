@@ -1,9 +1,6 @@
 package Models;
 
-import Controller.TicketController;
-
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.Objects;
 
 public class TicketModel implements Comparable<TicketModel> {
@@ -63,7 +60,7 @@ public class TicketModel implements Comparable<TicketModel> {
     }
 
     public String toString() {
-        return "Название : " + this.name + "\nЦена : " + this.price + "\nСтатус : " + this.type + "\nPassportID : " + this.person + "\nID : " + this.id + "\n";
+        return "Имя: " + this.name + "\nЦена: " + this.price + "\nСтатус: " + this.type + "\nPassportID: " + this.person + "\nID: " + this.id + "\n";
     }
     public String showPerson(){
         return "PassportID : " + person;

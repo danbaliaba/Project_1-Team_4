@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class CLIView {
     String filepath;
-    TicketController TicketController = new TicketController(filepath);
+    TicketController TicketController;
 
     public String askName() {
         String name;
@@ -194,9 +194,9 @@ public class CLIView {
     }
 
     public void startProgram(String filepath) {
-        TicketController ticketController = new TicketController(filepath);
+        TicketController = new TicketController(filepath);
 
-        ticketController.loadTicketsFromFile();
+        TicketController.loadTicketsFromFile();
 
         Scanner insert = new Scanner(System.in);
 

@@ -10,8 +10,8 @@ public class TicketController {
     String filepath;
 
     public TicketController() {
-        TicketRepository = new TicketRepository();
-        CSVFileRepository = new CSVFileRepository(filepath);
+        this.TicketRepository = new TicketRepository();
+        this.CSVFileRepository = new CSVFileRepository(filepath);
         this.loadTicketsFromFile();
     }
 
@@ -21,21 +21,16 @@ public class TicketController {
 
     public void loadTicketsFromFile() {
         List<TicketModel> ticketModels = this.CSVFileRepository.loadForController();
-        for (TicketModel movie : ticketModels) {
-            this.TicketRepository.add(movie);
+        for (TicketModel tickets : ticketModels) {
+            this.TicketRepository.add(tickets);
         }
     }
 
-    public TicketModel showListForView() {
-        for(TicketModel ticket : TicketRepository.getTickets())
-            return ticket;
-        return null;
+    public List<TicketModel> showListForView() {
+        return TicketRepository.getTickets();
     }
-//    public void setTicketsForView(List<TicketModel> ticketsFromFile) {
-//        TicketRepository.setTickets(ticketsFromFile);
-//    }
 
-    public TicketController (String filepath){
+    public TicketController(String filepath) {
         this.TicketRepository = new TicketRepository();
         this.CSVFileRepository = new CSVFileRepository(filepath);
     }
@@ -54,7 +49,8 @@ public class TicketController {
         newTicket.setId(id);
         this.TicketRepository.add(newTicket);
     }
-    public void personSorterForView(){ // связь метода printFieldDescendingPerson с TicketRepository
+
+    public void personSorterForView() { // связь метода printFieldDescendingPerson с TicketRepository
         TicketRepository.personSorter();
     }
 
@@ -80,15 +76,9 @@ public class TicketController {
         return result;
     }
 
-    public void saveForView(String filepath){
+    public void saveForView(String filepath) {
         CSVFileRepository.saveForController(filepath, TicketRepository.tickets);
     }
-
-//    public void loadForView (String filepath){
-//        this.TicketRepository.clearListForController();
-//        if (CSVFileRepository.loadForController(filepath)!=null)
-//            this.TicketRepository = CSVFileRepository.loadForController(filepath);
-//    }
 
     public void clearForView() {
         TicketRepository.clearListForController();
