@@ -1,24 +1,19 @@
 package Views;
 
 import Controller.TicketController;
-import Models.TicketModel;
 import Models.TicketType;
 import Models.Utils;
-import jdk.jshell.execution.Util;
 
 import java.util.InputMismatchException;
+
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CLIView {
-
-
-    TicketController TicketController = new TicketController();
-    List<TicketModel> tickets = new ArrayList<>();
+    String filepath;
+    TicketController TicketController = new TicketController(filepath);
 
     public String askName() {
-        String name = null;
+        String name;
         Scanner scan = new Scanner(System.in);
         do {
             System.out.print("Введите имя : ");
@@ -187,19 +182,27 @@ public class CLIView {
         }
     }
 
-
     public void showCommand() {
         System.out.println(TicketController.showListForView());
     }
 
-    public void startProgram() {
-        Scanner insert = new Scanner(System.in);
-        System.out.println("Команда help выведет доступный список команд!");
+    public void saveCommand(String filepath) {
+        TicketController.saveForView(filepath);
+    }
 
+    public void startProgram(String filepath) {
+        TicketController ticketController = new TicketController(filepath);
+
+        ticketController.loadTicketsFromFile();
+
+        Scanner insert = new Scanner(System.in);
+
+        System.out.println("Команда help выведет доступный список команд!");
         String vvod;
-        String[] vVodInParts = null; // VAL: объявление строки для работы далее, она будет отвечать за разделение строк при работе с некоторыми методами
-        String argsIn = null; // VAL: объявление аргументов, которые будут появляться при пользовательском вводе
         do {
+            String[] vVodInParts = null; // VAL: объявление строки для работы далее, она будет отвечать за разделение строк при работе с некоторыми методами
+            String argsIn = null; // VAL: объявление аргументов, которые будут появляться при пользовательском вводе
+
             System.out.print("Введите команду: ");
             vvod = insert.nextLine();
 
@@ -256,6 +259,8 @@ public class CLIView {
              /*   case "print_field_descending_person": // надо доделать
                     personSorter();
                     break;*/
+                case "save":
+                    saveCommand(filepath);
                 case "exit":
                     System.out.println("Завершение программы.");
                     break;
@@ -264,7 +269,6 @@ public class CLIView {
                     break;
             }
         } while (!vvod.equals("exit"));
-
         insert.close();
     }
 }
