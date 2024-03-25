@@ -54,6 +54,9 @@ public class TicketController {
         newTicket.setId(id);
         this.TicketRepository.add(newTicket);
     }
+    public void personSorterForView(){ // связь метода printFieldDescendingPerson с TicketRepository
+        TicketRepository.personSorter();
+    }
 
     public TicketType ticketTypeArgsInResultForView(String upperCaseArgsIn) {
         TicketType result = null;

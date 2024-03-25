@@ -45,6 +45,14 @@ public class TicketRepository {
         }
         return id;
     }
+    public void personSorter(){ // выполнение сортировки по убыванию для метода printFieldDescendingPerson
+        System.out.println("PassportID отсортированный по цене (↓) :");
+        tickets.sort(TicketModel::compareTo);
+        for(TicketModel ticket : tickets)
+        {
+            System.out.println(ticket.showPerson());
+        }
+    }
 
     public TicketModel listSortTypeForController(TicketType current) {
         if(current == TicketType.VIP)

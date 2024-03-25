@@ -3,9 +3,10 @@ package Models;
 import Controller.TicketController;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.Objects;
 
-public class TicketModel {
+public class TicketModel implements Comparable<TicketModel> {
     private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private int price; //Значение поля должно быть больше 0
@@ -45,6 +46,7 @@ public class TicketModel {
     public void setId(long newId) {
         this.id = newId;
     }
+    public int getPrice(){return this.price;}
 
 
     @Override
@@ -62,6 +64,14 @@ public class TicketModel {
 
     public String toString() {
         return "Название : " + this.name + "\nЦена : " + this.price + "\nСтатус : " + this.type + "\nPassportID : " + this.person + "\nID : " + this.id + "\n";
+    }
+    public String showPerson(){
+        return "PassportID : " + person;
+    }
+
+    @Override
+    public int compareTo(TicketModel o) { // переопределение для сравнения элементов в методе printFieldDescendingPerson
+        return o.getPrice() - this.price;
     }
 
     public static TicketModel getFromCSV(String line) throws IOException {

@@ -181,6 +181,9 @@ public class CLIView {
             System.out.println(TicketController.listSortForView(TicketController.ticketTypeArgsInResultForView(upperCaseArgsIn)));
         }
     }
+    public void printFieldDescendingPerson(){ // Связь метода printFieldDescendingPerson с контроллером
+        TicketController.personSorterForView();
+    }
 
     public void showCommand() {
         System.out.println(TicketController.showListForView());
@@ -256,9 +259,9 @@ public class CLIView {
                 case "filter_greater_than_type":
                     listSortTypeCommand(argsIn);
                     break;
-             /*   case "print_field_descending_person": // надо доделать
-                    personSorter();
-                    break;*/
+                case "print_field_descending_person": // доделал вывод только паспортных данных по убыванию цены
+                    printFieldDescendingPerson();
+                    break;
                 case "save":
                     saveCommand(filepath);
                 case "exit":
